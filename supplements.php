@@ -39,27 +39,50 @@
         <div class="card bg-info text-white">
             <div class="card-body">
                 <h2 class="text-center">Supplements Details</h2>
+                <a href="view_supplements.php" class="btn btn-warning btn-block">View All Supplements</a>
+                <?php
+                include('action_page.php');
+
+                if (isset($_POST['submit'])) {
+                    $sup_id = $_POST['supplement_id'];
+                     $sup_desc = $_POST['supp_desc'];
+                     $cost_excl = $_POST['cost_excl'];
+                     $cost_incl = $_POST['cost_incl'];
+                     $min_level = $_POST['min_level'];
+                     $tock_level = $_POST['stock_level'];
+                     $nap_code = $_POST['nap_code'];
+                    $supplier_id = $_POST['sup_id'];
+                    
+                    if(!empty($sup_id || $sup_desc || $cost_excl || $cost_incl || $min_level || $tock_level || $nap_code || $supplier_id)){
+
+                    Action::insert_suplements($sup_id, $sup_desc, $cost_excl, $cost_incl, $min_level, $tock_level, $nap_code, $supplier_id);
+                    }else{
+                        echo "Fill All Required Fields";
+                    }
+                }
+
+                ?>
             </div>
         </div>
         <div class="card bg-dark text-light">
             <div class="card-body">
-                <form action="/action_page.php">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method='post'>
                     <div class="form-group">
                         <label class="text-white">Supplement ID </label>
-                        <input type="text" class="form-control" placeholder="Supplement ID" name="client_id">
+                        <input type="text" class="form-control" placeholder="Supplement ID" name="supplement_id" required/>
                     </div>
                     <div class="form-group">
                         <label class="text-white">Supplement Description</label>
-                        <textarea class="form-control" name" name="description">
+                        <textarea class="form-control"  name="supp_desc">
                         </textarea>
                     </div>
                     <div class="form-group">
                         <label class="text-white">Price Excluding Vat</label>
-                        <input type="number" class="form-control" placeholder="0.00" name="cost_excl_vat">
+                        <input type="number" class="form-control" placeholder="0.00" name="cost_excl">
                     </div>
                     <div class="form-group">
                         <label class="text-white">Price Including Vat</label>
-                        <input type="number" class="form-control" placeholder="0.00" name="cost_incl_vat" required />
+                        <input type="number" class="form-control" placeholder="0.00" name="cost_incl" required />
                     </div>
                     <div class="form-group">
                         <label class="text-white">Minimum Level</label>
@@ -67,17 +90,17 @@
                     </div>
                     <div class="form-group">
                         <label class="text-info">Current Stock Level</label>
-                        <input type="number" class="form-control" placeholder="Current Stock Level" name="current_stock_level">
+                        <input type="number" class="form-control" placeholder="Current Stock Level" name="stock_level">
                     </div>
                     <div class="form-group">
                         <label class="text-info">Nappi Code</label>
-                        <input type="text" class="form-control" placeholder="Nappi Code" name="Nappi_Code" required />
+                        <input type="text" class="form-control" placeholder="Nappi Code" name="nap_code" required />
                     </div>
                     <div class="form-group">
                         <label class="text-info">Suplier ID</label>
-                        <input type="text" class="form-control" placeholder="Supplier ID" name="supplier_id" required />
+                        <input type="text" class="form-control" placeholder="Supplier ID" name="sup_id" required />
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    <button type="submit" name="submit" class="btn btn-primary btn-block">Submit</button>
                 </form>
             </div>
         </div>

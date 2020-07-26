@@ -1,10 +1,3 @@
-<?php
-include('action_page.php');
-
-//Connecting to database by calling the static method from Action class
-Action::connection();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -46,21 +39,35 @@ Action::connection();
         <div class="card bg-info text-white">
             <div class="card-body">
                 <h2 class="text-center">Reference Details</h2>
+                
+                <a href="view_references.php" class="btn btn-warning btn-block"> View all Reference Details</a>
+                <?php
+                include('action_page.php');
+
+                $ref = $_POST['reference_id'];
+                $desc = $_POST['description'];
+
+
+                if (isset($_POST['submit'])) {
+                    Action::insert_reference($ref, $desc);
+                }
+
+                ?>
             </div>
         </div>
         <div class="card bg-dark text-light">
             <div class="card-body">
-                <form action="/action_page.php">
+                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method='post'>
                     <div class="form-group">
                         <label class="form-label">Reference ID</label>
-                        <input type="number" class="form-control" placeholder="Reference ID" name="client_id" required />
+                        <input type="number" class="form-control" placeholder="Reference ID" name="reference_id" required />
                     </div>
                     <div class="form-group">
                         <label class="form-label">Description</label>
                         <textarea class="form-control" name="description" required>
                         </textarea>
                     </div>
-                    <button type="submit" class="btn btn-success btn-block">Save</button>
+                    <button name="submit" type="submit" class="btn btn-success btn-block">Save</button>
                 </form>
             </div>
         </div>

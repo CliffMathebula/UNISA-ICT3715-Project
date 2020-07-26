@@ -37,11 +37,36 @@
     <div class="container">
         <br>
         <div class="card bg-info text-white">
-            <div class="card-body"><h2 class="text-center">Invoice Details</h2></div>
+            <div class="card-body"><h2 class="text-center">Invoice Details</h2>
+            <a href="view_invoice_details.php" class="btn btn-warning btn-block">View Invoice Details</a>
+            </div>
+            
+            <?php
+                include('action_page.php');
+
+                if (isset($_POST['submit'])) {
+
+                    $inv_num = $_POST['invoice_num']; 
+                    $inv_date = $_POST['invoice_date'];
+                    $inv_paid = $_POST['invoice_paid'];
+                    $date = $_POST['inv_paid_date'];
+                    $comments = $_POST['comments'];
+                    $client_id = $_POST['client_id'];
+
+                    if(!empty($inv_num || $inv_date || $inv_paid || $date || $comments || $client_id)){
+
+                    Action::insert_invoice_info($inv_num, $inv_date, $inv_paid, $date, $comments, $client_id);
+                    }else{
+                        echo "Fill All Required Fields";
+                    }
+                }
+
+                ?>
+
         </div>
         <div class="card bg-dark text-light">
             <div class="card-body">
-                <form action="/action_page.php">
+                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" >
                     <div class="form-group">
                     <label class="form-label">Invoice Number</label>
                         <input type="number" class="form-control" placeholder="Invoice Number" name="invoice_num" required/>
@@ -53,7 +78,7 @@
 
                     <div class="form-group">
                     <label class="form-label">Invoice Paid?</label>
-                        <select class="browser-default custom-select" required>
+                        <select class="browser-default custom-select" name="invoice_paid" required>
                             <option selected>Select option</option>
                             <option value="yes">Yes</option>
                             <option value="No">No</option>
@@ -71,17 +96,15 @@
                         </textarea>
                     </div>
 
-
                     <div class="form-group">
                     <label class="form-label">Client Id</label>
                         <input type="number" class="form-control" placeholder="Client ID" name="client_id" required />
                     </div>
-                    <button type="submit" class="btn btn-warning btn-block">Proceed</button>
+                    <button type="submit" name="submit" class="btn btn-warning btn-block">Proceed</button>
                 </form>
             </div>
         </div>
         <br>
-
     </div>
 
 </body>

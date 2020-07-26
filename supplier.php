@@ -39,14 +39,37 @@
         <div class="card bg-info text-white">
             <div class="card-body">
                 <h2 class="text-center">Supplier Details</h2>
+                <a href="view_supplier.php" class="btn btn-warning btn-block">View all Supplier Details</a>
+                
+                <?php
+                include('action_page.php');
+
+                $supp_id = $_POST['supp_id'];
+                $contact_person = $_POST['contact_person'];
+                $supp_tel = $_POST['supp_tel'];
+                $supp_email = $_POST['email'];
+                 $bank_name = $_POST['bank_name'];
+                 $bank_branch = $_POST['bank_branch'];
+                 $bank_code = $_POST['bank_code'];
+                 $account_number = $_POST['account_num'];
+
+                if (isset($_POST['submit'])) {   
+                    if(!empty($supp_id || $contact_person || $supp_tel || $supp_email || $bank_name || $bank_branch || $bank_code || $account_number)){
+
+                    Action::insert_supplier($supp_id, $contact_person, $supp_tel, $supp_email, $bank_name, $bank_branch, $bank_code, $account_number);
+                    }else{
+                        echo "Fill All Required Fields";
+                    }
+                }
+                ?>
             </div>
         </div>
         <div class="card bg-dark text-light">
             <div class="card-body">
-                <form action="/action_page.php">
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method='post'>
                     <div class="form-group">
                         <label class="text-white">Supplier ID </label>
-                        <input type="text" class="form-control" placeholder="Supplier ID" name="supplier_id" required/>
+                        <input type="text" class="form-control" placeholder="Supplier ID" name="supp_id" required/>
                     </div>
                     <div class="form-group">
                         <label class="text-white">Contact Person</label>
@@ -54,29 +77,29 @@
                     </div>
                     <div class="form-group">
                         <label class="text-white">Supplier Telephone </label>
-                        <input type="phone" class="form-control" placeholder="Telephone" name="telephone" required/>
+                        <input type="phone" class="form-control" placeholder="Telephone" name="supp_tel" required/>
                     </div>
                     <div class="form-group">
-                        <label class="text-white">Price Including Vat</label>
-                        <input type="number" class="form-control" placeholder="0.00" name="cost_incl_vat" required />
+                        <label class="text-white">Supplier Email</label>
+                        <input type="email" class="form-control" placeholder="email" name="email" required />
                     </div>
                     <div class="form-group">
-                        <label class="text-white">Minimum Level</label>
-                        <input type="number" class="form-control" placeholder="Minimum Level" name="min_level" required />
+                        <label class="text-white">Bank Name</label>
+                        <input type="text" class="form-control" placeholder="Bank Name" name="bank_name" required />
                     </div>
                     <div class="form-group">
-                        <label class="text-info">Current Stock Level</label>
-                        <input type="number" class="form-control" placeholder="Current Stock Level" name="current_stock_level">
+                        <label class="text-info">Bank Branch Name</label>
+                        <input type="text" class="form-control" placeholder="Bank Branch Name" name="bank_branch" required/>
                     </div>
                     <div class="form-group">
-                        <label class="text-info">Nappi Code</label>
-                        <input type="text" class="form-control" placeholder="Nappi Code" name="Nappi_Code" required />
+                        <label class="text-info">Bank Branch Code</label>
+                        <input type="text" class="form-control" placeholder="Bank Branch Code" name="bank_code" required />
                     </div>
                     <div class="form-group">
-                        <label class="text-info">Suplier ID</label>
-                        <input type="text" class="form-control" placeholder="Supplier ID" name="supplier_id" required />
+                        <label class="text-info">Bank Account Number</label>
+                        <input type="number" class="form-control" placeholder="Bank Account Number" name="account_num" required />
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                    <button type="submit" name="submit" class="btn btn-primary btn-block">Submit</button>
                 </form>
             </div>
         </div>

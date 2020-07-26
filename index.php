@@ -36,7 +36,7 @@
         <h1>ALT HEALTH SOLUTIONS </h1>
         <p>THE BEST MEDICAL SOLUTIONS YOU CAN TRUST.</p>
         <img src="logo.jpeg" width="400" height="200"><br /><br />
-   <a href="clientinfo.php" class="btn btn-info btn-xl">Proceed to Dashboard</a>
+   <a href="dashboard.php" class="btn btn-info btn-xl">Proceed to Dashboard</a>
     </div>
 <p class="text-center">ALT Health Service &copy 2020</p>
 
